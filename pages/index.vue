@@ -6,7 +6,7 @@
       autocomplete="off"
       single-line
       clearable
-      @click:clear="search = ''"
+      @click:clear="clearSearch"
     >
       <template #append-outer>
         <v-btn color="success" @click="searchMe">
@@ -35,6 +35,13 @@
               >
                 <RepoCard :repo="repo" />
               </v-col>
+              <v-btn
+                v-if="searchedRepos.length === 0"
+                class="mx-auto mb-4"
+                @click="loadMoreRepos"
+              >
+                Load more
+              </v-btn>
             </v-row>
           </v-container>
         </div>
@@ -50,6 +57,13 @@
               >
                 <userCard :user="user" />
               </v-col>
+              <v-btn
+                v-if="searchedUsers.length === 0"
+                class="mx-auto mb-4"
+                @click="loadMoreUsers"
+              >
+                Load more
+              </v-btn>
             </v-row>
           </v-container>
         </div>
@@ -68,7 +82,7 @@ export default {
   },
 
   async asyncData({ $axios }) {
-    const repos = await $axios.$get('orgs/vuejs/repos')
+    const repos = await $axios.$get('orgs/vuejs/repos?per_page=12')
     return { repos }
   },
 
@@ -84,6 +98,7 @@ export default {
     ],
     searchedRepos: [],
     searchedUsers: [],
+    pageNumber: 1,
   }),
 
   computed: {
@@ -113,6 +128,19 @@ export default {
       }
       return this.repos
     },
+
+    lastUserId() {
+      const [lastUserId] = this.users.slice(-1)
+      return lastUserId.id
+    },
+  },
+
+  watch: {
+    search(val) {
+      if (val === '') {
+        this.clearSearch()
+      }
+    },
   },
 
   methods: {
@@ -137,6 +165,12 @@ export default {
       }
     },
 
+    clearSearch() {
+      this.search = ''
+      this.searchedRepos = []
+      this.searchedUsers = []
+    },
+
     async searchRepos() {
       if (!this.search) return this.defaultArray
       const result = await this.$axios.$get(
@@ -151,6 +185,21 @@ export default {
         `search/users?q=${this.search.trim('')}`
       )
       this.searchedUsers = result.items
+    },
+
+    async loadMoreRepos() {
+      this.pageNumber = this.pageNumber + 1
+      const repos = await this.$axios.$get(
+        `orgs/vuejs/repos?page=${this.pageNumber}&per_page=12`
+      )
+      this.repos.push(...repos)
+    },
+
+    async loadMoreUsers() {
+      const users = await this.$axios.$get(
+        `https://api.github.com/users?since=${this.lastUserId}`
+      )
+      this.users.push(...users)
     },
   },
 }
