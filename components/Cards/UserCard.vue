@@ -11,9 +11,9 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn text>
-        Bookmark
-        <v-icon right size="28" color="pink">mdi-heart</v-icon>
+      <v-btn text @click="addToFav">
+        {{ bookmarkLabel }}
+        <v-icon right size="28" :color="bookmarkIconColor">mdi-heart</v-icon>
       </v-btn>
 
       <v-btn text :href="user.html_url">
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'UserCard',
 
@@ -32,6 +34,34 @@ export default {
     user: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    ...mapGetters({
+      isFavoritedUser: 'favorites/isFavoritedUser',
+    }),
+
+    isFavorited() {
+      return this.isFavoritedUser(this.user.id)
+    },
+
+    bookmarkLabel() {
+      return this.isFavorited ? 'BookMarked' : 'Bookmark'
+    },
+
+    bookmarkIconColor() {
+      return this.isFavorited ? 'pink' : 'gray'
+    },
+  },
+
+  methods: {
+    addToFav() {
+      if (this.isFavorited) {
+        this.$store.commit('favorites/removeFromFavUsers', this.user)
+      } else {
+        this.$store.commit('favorites/addToFavUsers', this.user)
+      }
     },
   },
 }

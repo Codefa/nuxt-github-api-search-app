@@ -16,7 +16,7 @@
           exact
         >
           <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon :color="item.color">{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
@@ -63,13 +63,15 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
+          color: 'green',
           title: 'Welcome',
           to: '/',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          icon: 'mdi-heart',
+          color: 'pink',
+          title: 'Favorites',
+          to: '/favorites',
         },
       ],
       miniVariant: false,

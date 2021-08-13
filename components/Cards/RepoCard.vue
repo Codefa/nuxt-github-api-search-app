@@ -13,9 +13,9 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn text>
-        Bookmark
-        <v-icon right size="28" color="pink">mdi-heart</v-icon>
+      <v-btn text @click="addToFav">
+        {{ bookmarkLabel }}
+        <v-icon right size="28" :color="bookmarkIconColor">mdi-heart</v-icon>
       </v-btn>
 
       <v-btn text :href="repo.html_url">
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'RepoCard',
 
@@ -34,6 +36,34 @@ export default {
     repo: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    ...mapGetters({
+      isFavoritedRepo: 'favorites/isFavoritedRepo',
+    }),
+
+    isFavorited() {
+      return this.isFavoritedRepo(this.repo.id)
+    },
+
+    bookmarkLabel() {
+      return this.isFavorited ? 'BookMarked' : 'Bookmark'
+    },
+
+    bookmarkIconColor() {
+      return this.isFavorited ? 'pink' : 'gray'
+    },
+  },
+
+  methods: {
+    addToFav() {
+      if (this.isFavorited) {
+        this.$store.commit('favorites/removeFromFavRepos', this.repo)
+      } else {
+        this.$store.commit('favorites/addToFavRepos', this.repo)
+      }
     },
   },
 }
