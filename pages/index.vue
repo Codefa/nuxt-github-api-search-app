@@ -94,7 +94,6 @@ export default {
     items: [
       { tab: 'Repos', key: 'vue' },
       { tab: 'Users', key: 'users' },
-      { tab: 'Favorites', key: 'fav' },
     ],
     searchedRepos: [],
     searchedUsers: [],
