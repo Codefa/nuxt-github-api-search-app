@@ -5,7 +5,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     htmlAttrs: {
-      lang: "en",
+      lang: 'en',
     },
     titleTemplate: '%s - nuxt-github-api-search-app',
     title: 'nuxt-github-api-search-app',
@@ -42,7 +42,35 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/auth-next',
+    '@nuxtjs/i18n',
   ],
+
+  i18n: {
+    seo: false,
+    strategy: 'no_prefix',
+    locales: [
+      {
+        code: 'en',
+        file: 'en-UK.js',
+        name: 'English',
+      },
+      {
+        code: 'ml',
+        file: 'ml-KL.js',
+        name: 'Malayalam',
+      },
+      {
+        code: 'hi',
+        file: 'hi-IN.js',
+        name: 'Hindi',
+      },
+    ],
+    langDir: 'lang/',
+    defaultLocale: 'en',
+    vueI18n: {
+      fallbackLocale: 'en',
+    },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -66,7 +94,7 @@ export default {
 
   publicRuntimeConfig: {
     clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET
+    clientSecret: process.env.CLIENT_SECRET,
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -76,14 +104,14 @@ export default {
       mobileAppIOS: true,
     },
     manifest: {
-      name: "Github Search App",
-      short_name: "Github Search App",
-      description: "Github Search App",
-      lang: "en",
-      display: "standalone",
-      background_color: "white",
-      theme_color: "#ffffff",
-      crossorigin: "use-credentials",
+      name: 'Github Search App',
+      short_name: 'Github Search App',
+      description: 'Github Search App',
+      lang: 'en',
+      display: 'standalone',
+      background_color: 'white',
+      theme_color: '#ffffff',
+      crossorigin: 'use-credentials',
     },
   },
 

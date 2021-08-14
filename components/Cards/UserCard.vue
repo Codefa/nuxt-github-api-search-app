@@ -4,8 +4,6 @@
       <v-card-title class="white--text">{{ user.login }}</v-card-title>
     </v-img>
 
-    <!-- <v-card-subtitle class="pb-0"> Staring: {{ repo.stargazers_count }} </v-card-subtitle> -->
-
     <v-card-text class="text--primary">
       <div>{{ user.repos_url }}</div>
     </v-card-text>
@@ -24,7 +22,7 @@
       </v-btn>
 
       <v-btn text :href="user.html_url">
-        Explore
+        {{ $t('card.explore') }}
         <v-icon right size="28" color="orange">mdi-compass</v-icon>
       </v-btn>
     </v-card-actions>
@@ -54,7 +52,9 @@ export default {
     },
 
     bookmarkLabel() {
-      return this.isFavorited ? 'BookMarked' : 'Bookmark'
+      return this.isFavorited
+        ? this.$t('card.bookmarked')
+        : this.$t('card.bookmark')
     },
 
     bookmarkIconColor() {
