@@ -41,6 +41,15 @@
         </v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
+      <v-spacer />
+      <div v-if="$auth.loggedIn">
+        <v-avatar @click="$router.push('/profile')">
+          <img :src="$auth.user.avatar_url" :alt="$auth.user.login" />
+        </v-avatar>
+        <strong>{{ $auth.user.login }}</strong>
+        <v-btn text @click="logout">Logout</v-btn>
+      </div>
+      <v-btn v-else text @click="loginWithGithub">Login</v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -76,7 +85,23 @@ export default {
       ],
       miniVariant: false,
       title: 'Github Search App',
+      jj: this.$auth.user,
     }
+  },
+
+  methods: {
+    async loginWithGithub() {
+      try {
+        await this.$auth.loginWith('github')
+        this.$router.push('/profile')
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    logout() {
+      this.$auth.logout()
+    },
   },
 }
 </script>
