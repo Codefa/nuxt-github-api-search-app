@@ -48,8 +48,8 @@ export default {
   auth: {
     strategies: {
       github: {
-        clientId: 'd896cb8e9f4b912a3028',
-        clientSecret: '2fe4c064f7238b903b74e22fe0b26e176b8588ec',
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
       },
     },
     redirect: {
@@ -58,6 +58,11 @@ export default {
       callback: '/',
       home: '/profile',
     },
+  },
+
+  publicRuntimeConfig: {
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
