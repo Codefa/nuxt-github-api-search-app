@@ -18,5 +18,15 @@ module.exports = {
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue'
   ],
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
+  coveragePathIgnorePatterns: [
+    "<rootDir>/node_modules",
+    "<rootDir>/cypress",
+    "<rootDir>/.nuxt",
+  ],
+  testPathIgnorePatterns: [
+    "<rootDir>/node_modules",
+    "<rootDir>/cypress",
+    "<rootDir>/.nuxt",
+  ],
 }
