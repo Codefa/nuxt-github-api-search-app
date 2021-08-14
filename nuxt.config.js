@@ -1,8 +1,12 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  telemetry: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
+    htmlAttrs: {
+      lang: "en",
+    },
     titleTemplate: '%s - nuxt-github-api-search-app',
     title: 'nuxt-github-api-search-app',
     meta: [
@@ -67,8 +71,19 @@ export default {
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
+    meta: {
+      nativeUI: true,
+      mobileAppIOS: true,
+    },
     manifest: {
-      lang: 'en',
+      name: "Github Search App",
+      short_name: "Github Search App",
+      description: "Github Search App",
+      lang: "en",
+      display: "standalone",
+      background_color: "white",
+      theme_color: "#ffffff",
+      crossorigin: "use-credentials",
     },
   },
 
