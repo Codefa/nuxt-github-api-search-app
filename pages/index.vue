@@ -2,6 +2,7 @@
   <div>
     <v-text-field
       v-model="search"
+      data-test-search-input
       :label="computedSearchLabel"
       autocomplete="off"
       single-line
@@ -9,7 +10,7 @@
       @click:clear="clearSearch"
     >
       <template #append-outer>
-        <v-btn color="success" @click="searchMe">
+        <v-btn data-test-search-btn color="success" @click="searchMe">
           search
           <v-icon right size="25">mdi-magnify</v-icon>
         </v-btn>
@@ -37,6 +38,7 @@
               </v-col>
               <v-btn
                 v-if="searchedRepos.length === 0"
+                data-test-repos-loadmore-btn
                 class="mx-auto mb-4"
                 @click="loadMoreRepos"
               >
@@ -59,6 +61,7 @@
               </v-col>
               <v-btn
                 v-if="searchedUsers.length === 0"
+                data-test-users-loadmore-btn
                 class="mx-auto mb-4"
                 @click="loadMoreUsers"
               >
