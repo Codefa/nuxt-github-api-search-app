@@ -69,6 +69,8 @@ export default {
     UserCard: () => import('~/components/Cards/UserCard'),
   },
 
+  middleware: 'auth',
+
   data: () => ({
     tab: null,
     items: [

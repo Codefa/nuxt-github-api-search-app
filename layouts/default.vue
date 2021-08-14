@@ -85,7 +85,6 @@ export default {
       ],
       miniVariant: false,
       title: 'Github Search App',
-      jj: this.$auth.user,
     }
   },
 
