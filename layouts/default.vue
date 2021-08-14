@@ -40,7 +40,7 @@
           {{ $vuetify.theme.dark ? 'mdi-weather-night' : 'mdi-weather-cloudy' }}
         </v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title data-test-app-title v-text="title" />
       <v-spacer />
       <div v-if="$auth.loggedIn">
         <v-avatar @click="$router.push('/profile')">
@@ -49,7 +49,9 @@
         <strong>{{ $auth.user.login }}</strong>
         <v-btn text @click="logout">Logout</v-btn>
       </div>
-      <v-btn v-else text @click="loginWithGithub">Login</v-btn>
+      <v-btn v-else text data-test-app-login @click="loginWithGithub">
+        Login
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>

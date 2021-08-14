@@ -11,9 +11,16 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn text @click="addToFav">
+      <v-btn text data-test="bookmarkToggle" @click="addToFav">
         {{ bookmarkLabel }}
-        <v-icon right size="28" :color="bookmarkIconColor">mdi-heart</v-icon>
+        <v-icon
+          right
+          data-test="bookmarkIcon"
+          size="28"
+          :color="bookmarkIconColor"
+        >
+          mdi-heart
+        </v-icon>
       </v-btn>
 
       <v-btn text :href="user.html_url">
