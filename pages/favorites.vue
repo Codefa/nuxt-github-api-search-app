@@ -1,10 +1,12 @@
 <template>
   <v-container>
-    <h1 class="text-center">Favorites</h1>
+    <h1 class="text-center">
+      {{ $t('layout.leftDrawer.favorites') }}
+    </h1>
     <v-divider></v-divider>
     <v-tabs v-model="tab" background-color="primary" dark>
       <v-tab v-for="item in items" :key="item.tab">
-        {{ item.tab }}
+        {{ $t(item.tab) }}
       </v-tab>
     </v-tabs>
 
@@ -74,8 +76,8 @@ export default {
   data: () => ({
     tab: null,
     items: [
-      { tab: 'Repos', key: 'vue' },
-      { tab: 'Users', key: 'users' },
+      { tab: 'repos', key: 'vue' },
+      { tab: 'users', key: 'users' },
     ],
   }),
 

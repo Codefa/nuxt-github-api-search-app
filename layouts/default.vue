@@ -19,11 +19,12 @@
             <v-icon :color="item.color">{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title v-text="$t(item.title)" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn icon @click.stop="miniVariant = !miniVariant">
@@ -40,24 +41,50 @@
           {{ $vuetify.theme.dark ? 'mdi-weather-night' : 'mdi-weather-cloudy' }}
         </v-icon>
       </v-btn>
-      <v-toolbar-title data-test-app-title v-text="title" />
+      <v-toolbar-title data-test-app-title v-text="$t(title)" />
       <v-spacer />
+      <select v-model="$i18n.locale">
+        <option
+          v-for="lang in $i18n.locales"
+          :key="lang.code"
+          :value="lang.code"
+        >
+          {{ lang.name }}
+        </option>
+      </select>
       <div v-if="$auth.loggedIn">
-        <v-avatar @click="$router.push('/profile')">
+        <v-avatar style="cursor: pointer" @click="$router.push('/profile')">
           <img :src="$auth.user.avatar_url" :alt="$auth.user.login" />
         </v-avatar>
-        <strong>{{ $auth.user.login }}</strong>
-        <v-btn text @click="logout">Logout</v-btn>
+        <strong
+          class="mr-4"
+          style="cursor: pointer"
+          @click="$router.push('/profile')"
+        >
+          {{ $auth.user.login }}
+        </strong>
+        <v-btn class="text-capitalize" outlined text @click="logout">
+          {{ $t('layout.logout') }}
+        </v-btn>
       </div>
-      <v-btn v-else text data-test-app-login @click="loginWithGithub">
-        Login
+      <v-btn
+        v-else
+        class="text-capitalize"
+        text
+        outlined
+        data-test-app-login
+        @click="loginWithGithub"
+      >
+        {{ $t('layout.login') }}
       </v-btn>
     </v-app-bar>
+
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
+
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
@@ -75,18 +102,18 @@ export default {
         {
           icon: 'mdi-apps',
           color: 'green',
-          title: 'Welcome',
+          title: 'layout.leftDrawer.welcome',
           to: '/',
         },
         {
           icon: 'mdi-heart',
           color: 'pink',
-          title: 'Favorites',
+          title: 'layout.leftDrawer.favorites',
           to: '/favorites',
         },
       ],
       miniVariant: false,
-      title: 'Github Search App',
+      title: 'layout.appTitle',
     }
   },
 

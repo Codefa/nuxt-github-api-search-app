@@ -11,7 +11,7 @@
     >
       <template #append-outer>
         <v-btn data-test-search-btn color="success" @click="searchMe">
-          search
+          {{ $t('search') }}
           <v-icon right size="25">mdi-magnify</v-icon>
         </v-btn>
       </template>
@@ -19,7 +19,7 @@
 
     <v-tabs v-model="tab" background-color="primary" dark>
       <v-tab v-for="item in items" :key="item.tab" @click="getData(item.key)">
-        {{ item.tab }}
+        {{ $t(item.tab) }}
       </v-tab>
     </v-tabs>
 
@@ -42,7 +42,7 @@
                 class="mx-auto mb-4"
                 @click="loadMoreRepos"
               >
-                Load more
+                {{ $t('loadMore') }}
               </v-btn>
             </v-row>
           </v-container>
@@ -65,7 +65,7 @@
                 class="mx-auto mb-4"
                 @click="loadMoreUsers"
               >
-                Load more
+                {{ $t('loadMore') }}
               </v-btn>
             </v-row>
           </v-container>
@@ -95,8 +95,8 @@ export default {
     search: '',
     users: [],
     items: [
-      { tab: 'Repos', key: 'vue' },
-      { tab: 'Users', key: 'users' },
+      { tab: 'repos', key: 'vue' },
+      { tab: 'users', key: 'users' },
     ],
     searchedRepos: [],
     searchedUsers: [],
@@ -106,8 +106,8 @@ export default {
   computed: {
     computedSearchLabel() {
       return this.tabKey === 'users'
-        ? 'search for users'
-        : 'search for vue repos'
+        ? this.$t('userSearchLabel')
+        : this.$t('repoSearchLabel')
     },
 
     computedRepos() {

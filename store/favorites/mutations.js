@@ -5,7 +5,10 @@ export default {
   },
 
   removeFromFavRepos(state, payload) {
-    state.repos.splice(state.repos.indexOf(payload), 1)
+    state.repos.splice(
+      state.repos.findIndex((r) => r.id === payload.id),
+      1
+    )
     // localStorage.setItem('favReops', JSON.stringify(state.repos))
   },
 
@@ -15,7 +18,10 @@ export default {
   },
 
   removeFromFavUsers(state, payload) {
-    state.users.splice(state.users.indexOf(payload), 1)
+    state.users.splice(
+      state.users.findIndex((u) => u.id === payload.id),
+      1
+    )
     // localStorage.setItem('favReops', JSON.stringify(state.users))
   },
 }
